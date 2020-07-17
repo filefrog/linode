@@ -1,0 +1,20 @@
+# Regularly rebuild the Docker image, even if nothing
+# structurally has changed in the Dockerfile, to get
+# the latest virus definitions from upstream.
+
+name: Linode Rebuild
+
+on:
+  schedule:
+    - cron: '45 23 * * *'
+
+jobs:
+  tag-and-push:
+    name: Set Auto-Build Tag
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: git tag && push
+        run: |
+          git tag auto-$(date +%Y%m%d)
+          git push origin --tags

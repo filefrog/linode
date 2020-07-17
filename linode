@@ -1,0 +1,4 @@
+#!/bin/sh
+exec docker run --rm -it \
+  -v $HOME:/root \
+  filefrog/linode "$@"
